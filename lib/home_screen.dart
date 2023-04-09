@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_tut/counter_controller.dart';
+
+import 'package:getx_tut/opacity_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,7 +11,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final CounterController controller = Get.put(CounterController());
+  OpacityController opacityController = Get.put(OpacityController());
   @override
   Widget build(BuildContext context) {
     // ignore: avoid_print
@@ -19,34 +20,21 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Getx Tutorial'),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Center(
-              child: Obx(
-                () => Text(
-                  controller.counter.toString(),
-                  style: const TextStyle(fontSize: 50),
-                ),
-              ),
+      body: Column(
+        children: [
+          Obx(
+            () => Container(
+              height: 250,
+              width: 180,
+              color: Colors.red.withOpacity(opacityController.opacity.value),
             ),
-            Row(
-              children: [
-                ElevatedButton(
-                    onPressed: () {
-                      controller.decrementCounter();
-                    },
-                    child: const Icon(Icons.minimize)),
-                const SizedBox(width: 20),
-                ElevatedButton(
-                    onPressed: () {
-                      controller.incrementCounter();
-                    },
-                    child: const Icon(Icons.add)),
-              ],
-            )
-          ],
-        ),
+          ),
+          Obx(() => Slider(
+              value: opacityController.opacity.value,
+              onChanged: (value) {
+                opacityController.setOpacity(value);
+              })),
+        ],
       ),
     );
   }
