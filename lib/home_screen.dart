@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'package:getx_tut/opacity_controller.dart';
+import 'package:getx_tut/notification_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,31 +10,28 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  OpacityController opacityController = Get.put(OpacityController());
+  final NotificationController notificationController =
+      Get.put(NotificationController());
+
   @override
   Widget build(BuildContext context) {
-    // ignore: avoid_print
     print('Rebuild');
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Getx Tutorial'),
-      ),
-      body: Column(
-        children: [
-          Obx(
-            () => Container(
-              height: 250,
-              width: 180,
-              color: Colors.red.withOpacity(opacityController.opacity.value),
-            ),
-          ),
-          Obx(() => Slider(
-              value: opacityController.opacity.value,
-              onChanged: (value) {
-                opacityController.setOpacity(value);
-              })),
-        ],
-      ),
-    );
+        appBar: AppBar(
+          title: const Text('Getx Tutorial'),
+        ),
+        body: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text('Notification'),
+            Obx(
+              () => Switch(
+                  value: notificationController.notification.value,
+                  onChanged: (value) {
+                    notificationController.setNotification(value);
+                  }),
+            )
+          ],
+        ));
   }
 }
