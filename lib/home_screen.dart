@@ -15,19 +15,33 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           title: const Text('Getx Tutorial'),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Center(
-                child: TextButton(
-                    onPressed: () {
-                      Get.toNamed('/screenOne');
-                      //Get.to(ScreenOne(name: 'Maskey'));
-                      //Get.to(ScreenOne(name: 'maskey'));
-                    },
-                    child: Text('Next Screen')))
-          ],
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ListTile(
+                title: Text('message'.tr),
+                subtitle: Text('name'.tr),
+              ),
+              const SizedBox(height: 50),
+              Row(
+                children: [
+                  OutlinedButton(
+                      onPressed: () {
+                        Get.updateLocale(Locale('en', 'US'));
+                      },
+                      child: Text('English')),
+                  SizedBox(width: 20),
+                  OutlinedButton(
+                      onPressed: () {
+                        Get.updateLocale(Locale('ne', 'NP'));
+                      },
+                      child: Text('Nepali')),
+                ],
+              )
+            ],
+          ),
         ));
   }
 }
